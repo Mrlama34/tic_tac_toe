@@ -137,48 +137,47 @@ class Game
     end
 
     def turn 
-        
         i = 0
         @players_choices = []
         # Il y a au maximum 9 tour, donc on continu dans que i est inf. à 9
-             while i < 9 
-                @players.each { |player|
+        while i < 9 
+            @players.each { |player|
                 if i == 0 
-                    puts "C'est parti pour le premier tour, que le meilleur gagne :) ! "
+                   puts "C'est parti pour le premier tour, que le meilleur gagne :) ! "
                 end
-                    @board.display_board
-                    # Pour chaque tour, on affiche le board, on adresse un message au joueur lui demandant où placer son pion
-                    puts "#{player.name}, ton symbole est : #{player.value} . Dans quelle case souhaites-tu jouer ? (ex: A1, B2, etc.)"
-                    choix = gets.chomp.to_s      
-                    hash = Hash[player.name, choix ]
-                    # On enregistre dans un hash son nom et son choix avant de pusher ça dans un array
-                    @players_choices.push(hash)
-                    @board.play(@players_choices)
-                    # On appel la méthode play
-                    if @board.victory == true
-                        puts "------------------- "
-                        puts "  #{player.name} You win, YAY!"
-                        puts "------------------- "
-                        player.win = true
-                        break
-                    # On stop le jeu si l'une des conditions de victoire est remplie et on affiche le joueur qui a gagné 
-                    end
-                    i += 1
-                    if i == 9 
-                        puts "   ------------ "
-                        puts "   Match nul ! "
-                        puts "   ------------ "
-                        self.end_game
-                        break 
-                    # On stop le jeu si on arrive à 9 tour sans victoire et on renvoi vers la méthode end_game
-                    end       
-                } 
+                @board.display_board
+                # Pour chaque tour, on affiche le board, on adresse un message au joueur lui demandant où placer son pion
+                puts "#{player.name}, ton symbole est : #{player.value} . Dans quelle case souhaites-tu jouer ? (ex: A1, B2, etc.)"
+                choix = gets.chomp.to_s      
+                hash = Hash[player.name, choix ]
+                # On enregistre dans un hash son nom et son choix avant de pusher ça dans un array
+                @players_choices.push(hash)
+                @board.play(@players_choices)
+                # On appel la méthode play
                 if @board.victory == true
+                    puts "------------------- "
+                    puts "  #{player.name} You win, YAY!"
+                    puts "------------------- "
+                    player.win = true
+                    break
+                # On stop le jeu si l'une des conditions de victoire est remplie et on affiche le joueur qui a gagné 
+                end
+                i += 1
+                if i == 9 
+                    puts "   ------------ "
+                    puts "   Match nul ! "
+                    puts "   ------------ "
                     self.end_game
-                    break  
-                # On stop la boucle while en cas de victoire et on renvoi vers la méthode end_game             
-                end         
-            end           
+                    break 
+                # On stop le jeu si on arrive à 9 tour sans victoire et on renvoi vers la méthode end_game
+                end       
+            } 
+            if @board.victory == true
+                self.end_game
+                break  
+               # On stop la boucle while en cas de victoire et on renvoi vers la méthode end_game             
+            end         
+        end           
     end
 
     def end_game 
