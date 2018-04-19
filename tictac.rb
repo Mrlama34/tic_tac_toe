@@ -148,16 +148,20 @@ class Game
                 @board.display_board
                 # Pour chaque tour, on affiche le board, on adresse un message au joueur lui demandant où placer son pion
                 puts "#{player.name}, ton symbole est : #{player.value} . Dans quelle case souhaites-tu jouer ? (ex: A1, B2, etc.)"
-                choix = gets.chomp.to_s      
+                choix = gets.chomp.to_s    
+                unless choix == "A1" || choix == "A2" || choix == "A3" || choix == "B1" || choix == "B2" || choix == "B3" || choix == "C1" || choix == "C2" || choix == "C3"
+                    puts "cette case n'existe pas, une autre ?"
+                    choix = gets.chomp.to_s 
+                end
                 hash = Hash[player.name, choix ]
                 # On enregistre dans un hash son nom et son choix avant de pusher ça dans un array
                 @players_choices.push(hash)
                 @board.play(@players_choices)
                 # On appel la méthode play
                 if @board.victory == true
-                    puts "------------------- "
+                    puts "--------------------- "
                     puts "  #{player.name} You win, YAY!"
-                    puts "------------------- "
+                    puts "--------------------- "
                     player.win = true
                     break
                 # On stop le jeu si l'une des conditions de victoire est remplie et on affiche le joueur qui a gagné 
