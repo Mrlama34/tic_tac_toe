@@ -18,17 +18,17 @@ class Board
 
     # On créer la méthode d'affichage du board sur le terminal
     def display_board
-        puts 
+        print "\n"
         puts "    TicTacToe"
-        puts
+        print "\n"
         puts "    1   2   3"
-        puts
+        print "\n"
         puts "A   #{@board[0].value} | #{@board[1].value} | #{@board[2].value} "
         puts "   ------------"
         puts "B   #{@board[3].value} | #{@board[4].value} | #{@board[5].value} "  
         puts "   ------------"
         puts "C   #{@board[6].value} | #{@board[7].value} | #{@board[8].value} "
-        puts 
+        print "\n"
     end 
     # La méthode play permet de changer les valeur des boardcases selon le choix des joueurs
     def play(players_choices)
@@ -113,6 +113,9 @@ class Game
     # Dans la classe game, on créer la méthode initialize qui permet de créer les instances des classes Player et board à chaque nouvelle partie
     attr_accessor :player_1, :player_2, :board
     def initialize
+        print "\n"
+        puts "This is my TicTacToe game made with Ruby!"
+        print "\n"    
         @player_1 = Player.new
         @player_2 = Player.new
         @board = Board.new
@@ -122,11 +125,13 @@ class Game
 
     def go
     # Ici, on lance le jeu avec les règles et le premier tour
-        puts
+        puts 
         puts "Prêts à jouer au Tic Tac Toe ? "
-        puts "Vous connaissez les règles, on y va!"
-        puts "Soyez attentif, si vous choisissez une case déjà prise, vous devrez sauter votre tour!"
-        puts "pour choisir une case, croiser lettre et chiffre. ex : A1, B2, etc. "
+        puts "Vous connaissez les règles, mais petits rappels : "
+        puts "1. Soyez attentifs, si vous choisissez une case déjà prise, vous devrez sauter votre tour!"
+        puts "2. Pour choisir une case, il faut croiser lettre et chiffre. ex : A1, B2, etc. "
+        puts "Have fun!"
+        sleep 8
         puts
         self.turn
     end
@@ -138,9 +143,12 @@ class Game
         # Il y a au maximum 9 tour, donc on continu dans que i est inf. à 9
              while i < 9 
                 @players.each { |player|
+                if i == 0 
+                    puts "C'est parti pour le premier tour, que le meilleur gagne :) ! "
+                end
                     @board.display_board
                     # Pour chaque tour, on affiche le board, on adresse un message au joueur lui demandant où placer son pion
-                    puts "#{player.name}, ton symbole est : #{player.value}. Dans quelle case souhaites-tu jouer ? (ex: A1, B2, etc.)"
+                    puts "#{player.name}, ton symbole est : #{player.value} . Dans quelle case souhaites-tu jouer ? (ex: A1, B2, etc.)"
                     choix = gets.chomp.to_s      
                     hash = Hash[player.name, choix ]
                     # On enregistre dans un hash son nom et son choix avant de pusher ça dans un array
@@ -148,9 +156,9 @@ class Game
                     @board.play(@players_choices)
                     # On appel la méthode play
                     if @board.victory == true
-                        puts "------------------ "
-                        puts "   #{player.name} You win"
-                        puts "------------------ "
+                        puts "------------------- "
+                        puts "  #{player.name} You win, YAY!"
+                        puts "------------------- "
                         player.win = true
                         break
                     # On stop le jeu si l'une des conditions de victoire est remplie et on affiche le joueur qui a gagné 
@@ -180,11 +188,10 @@ class Game
         new_game = gets.chomp
         if new_game == "y"
             Game.new.go
-        else "Come back later if you want!"
+        else puts "Come back later if you want!"
         end
     # La méthode end_game est appelée à la fin de chaque partie pour en proposer une autre
     end
-
 end
 
 # On lance le jeu
