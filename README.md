@@ -13,7 +13,7 @@ Le but du programme ? Jouer au tic Tac Toe sur son terminal, Have fun!
 
 Il n'y a qu'a lancer le programme sur son terminal et suivre les consignes.
 
-`` ruby titac.rb ``
+`` ruby tictac.rb ``
 
 Attention il faut entrer les combinaisons chiffres/lettres dans le programme. 
 Exemples : A1, A2, A3, B1, etc. Comme un tableau quoi!
